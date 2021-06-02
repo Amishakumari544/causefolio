@@ -13,15 +13,10 @@ import {
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
-    width: '750px',
-    height: '473px',
+    width: '100%',
     background: '#FFFFFF',
     borderRadius: '20px',
     fontSize: '16px',
-    [theme.breakpoints.down('xs')]: {
-      height: '793px',
-      width: '353px'
-    }
   },
   divider: {
     width: '450px',
@@ -165,6 +160,9 @@ const useStyles = makeStyles(theme => ({
       borderColor: '#F2F7FF',
       borderRadius: '20px'
     }
+  },
+  paddingRight: {
+    paddingRight: '80px'
   }
 }));
 
@@ -178,132 +176,122 @@ function CreateNewEvent() {
   return (
     <DrawerLayout>
       <div className={classes.root}>
-        <Grid container>
-          <Box display="flex">
-            <Box flexGrow={1}>
-              <Grid container>
-                <Grid item className={classes.topContainer}>
-                  <Typography variant="h1" className={classes.topText}>
-                    New Event
+        <Box display="flex" style={{ width: '100%' }}>
+          <Box flexGrow={1}>
+            <Grid container>
+              <Grid item className={classes.topContainer}>
+                <Typography variant="h1" className={classes.topText}>
+                  New Event
               </Typography>
-                </Grid>
               </Grid>
-              <Grid container className={classes.event}>
-                <Grid className={classes.eventText}>
-                  <TextField
-                    placeholder="Enter name of the event"
-                    className={classes.textField}
-                    fullWidth
-                    name="email"
-                    type="email"
-                    variant="outlined"
-                  //   onChange={handleChange}
-                  />
+            </Grid>
+            <Grid container className={classes.event}>
+              <Grid style={{ width: '100%' }}>
+                <TextField
+                  placeholder="Enter name of the event"
+                  className={classes.textField}
+                  fullWidth
+                  name="email"
+                  type="email"
+                  variant="outlined"
+                //   onChange={handleChange}
+                />
 
-                  <TextField
-                    placeholder="Add Description of the event"
-                    className={classes.textField}
-                    multiline
-                    fullWidth
-                    name="email"
-                    type="email"
-                    variant="outlined"
-                  //   onChange={handleChange}
-                  />
+                <TextField
+                  placeholder="Add Description of the event"
+                  className={classes.textField}
+                  multiline
+                  fullWidth
+                  name="email"
+                  type="email"
+                  variant="outlined"
+                //   onChange={handleChange}
+                />
 
-                  <Grid container>
-                    <Grid item xs={12} sm={12} md={6}>
-                      <input
-                        id="date"
-                        label="Birthday"
-                        type="date"
-                        defaultValue="2017-05-24"
-                        className={classes.date}
-                        InputLabelProps={{
-                          shrink: true
-                        }}
-                        style={{ marginRight: '30px' }}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
-                      <TextField
-                        fullWidth
-                        className={classes.textField}
-
-                        placeholder="Event Time"
-                        name="time"
-                        type="time"
-                        variant="outlined"
-                      //   onChange={handleChange}
-                      />
-                    </Grid>
+                <Grid container>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <input
+                      id="date"
+                      label="Birthday"
+                      type="date"
+                      defaultValue="2017-05-24"
+                      className={classes.date}
+                      InputLabelProps={{
+                        shrink: true
+                      }}
+                      style={{ marginRight: '30px' }}
+                    />
                   </Grid>
+                  <Grid item xs={12} sm={12} md={6}>
+                    <TextField
+                      fullWidth
+                      className={classes.textField}
 
-                  <TextField
-                    fullWidth
-                    className={classes.textField}
-                    placeholder="Event link / Registration link"
-                    name="email"
-                    type="email"
+                      placeholder="Event Time"
+                      name="time"
+                      type="time"
+                      variant="outlined"
+                    //   onChange={handleChange}
+                    />
+                  </Grid>
+                </Grid>
+
+                <TextField
+                  fullWidth
+                  className={classes.textField}
+                  placeholder="Event link / Registration link"
+                  name="email"
+                  type="email"
+                  variant="outlined"
+                //   onChange={handleChange}
+                />
+                <div className={classes.inputDiv}>
+                  <input
+                    className={classes.input1}
+                    placeholder="Speaker name"
+                    name="name"
+                    type="name"
                     variant="outlined"
+                    style={{ marginBottom: '0px' }}
                   //   onChange={handleChange}
                   />
-                  <div className={classes.inputDiv}>
-                    <input
-                      className={classes.input1}
-                      placeholder="Speaker name"
-                      name="name"
-                      type="name"
-                      variant="outlined"
-                      style={{ marginBottom: '0px' }}
-                    //   onChange={handleChange}
-                    />
-                    <Divider className={classes.divider} />
-                    <input
-                      placeholder="Speaker LinkedIn profile link"
-                      className={classes.input1}
-                      name="email"
-                      type="email"
-                      variant="outlined"
-                    //   onChange={handleChange}
-                    />
-                  </div>
+                  <Divider className={classes.divider} />
 
                   <input
-                    placeholder="Add a description for the event"
-                    className={classes.description}
+                    placeholder="Speaker LinkedIn profile link"
+                    className={classes.input1}
                     name="email"
                     type="email"
                     variant="outlined"
                   //   onChange={handleChange}
                   />
+                </div>
 
-                  <Button className={classes.button}>Add Speaker</Button>
-                  {/* </div> */}
-                </Grid>
+                <Button className={classes.button}>Add Speaker</Button>
+                {/* </div> */}
               </Grid>
-              <div className={classes.createbtn}>
-                <Button className={classes.cancelbtn}>Cancel</Button>
-                <Button className={classes.addbtn}>Create</Button>
-              </div>
-            </Box>
-            <Box maxWidth="28em" minWidth="24em">
-              <Card className={classes.image}>
-                <img
-                  src="/static/images/gallery.svg"
-                  alt="gallery-icon"
-                  className={classes.gallery}
-                />
-                <h3 className={classes.text}>Add a banner image</h3>
-              </Card>
-              <img
-                src="/static/images/event_img.svg"
-                alt="gallery-icon"
-                style={{ marginLeft: '51px', marginTop: '20px' }}
-              />
-            </Box>
+            </Grid>
+            <div className={classes.createbtn}>
+              <Button className={classes.cancelbtn}>Cancel</Button>
+              <Button className={classes.addbtn}>Create</Button>
+            </div>
           </Box>
-        </Grid>
+          <Box maxWidth="28em" minWidth="24em" className={classes.paddingRight}>
+            <Card className={classes.image}>
+              <img
+                src="/static/images/gallery.svg"
+                alt="gallery-icon"
+                className={classes.gallery}
+              />
+              <h3 className={classes.text}>Add a banner image</h3>
+            </Card>
+            <img
+              src="/static/images/event_img.svg"
+              alt="gallery-icon"
+              style={{ marginLeft: '51px', marginTop: '20px' }}
+            />
+          </Box>
+        </Box>
       </div>
     </DrawerLayout>
   );

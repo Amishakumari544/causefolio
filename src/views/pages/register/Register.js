@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/styles';
 import DrawerLayout from 'src/layouts/DrawerLayout';
 import {
@@ -9,7 +11,9 @@ import {
   TextField,
   InputBase
 } from '@material-ui/core';
-const useStyles = makeStyles(theme => ({
+import { firebase } from 'src/services/authService';
+
+const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
     width: '80%',
@@ -91,15 +95,44 @@ const useStyles = makeStyles(theme => ({
     padding: '5px',
     marginLeft: '16px',
     marginTop: 12,
-    marginBottom: 16,
-    '&:hover': {
-      backgroundColor: '#101c4c'
-    }
+    marginBottom: 16
   }
 }));
 
 function Register() {
   const classes = useStyles();
+  const user = useSelector((state) => state.account.user);
+  const history = useHistory();
+
+  const initialFieldValues = {
+    fullName: '',
+    role: '',
+    description: '',
+    linkedIn: '',
+    github: '',
+    twitter: '',
+    website: '',
+    interestedIn: ''
+  };
+  const [fieldValue, setFieldValue] = useState(initialFieldValues);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFieldValue({ ...fieldValue, [name]: value });
+  };
+
+  const handleRegister = (e) => {
+    e.preventDefault();
+    const userId = user.uid;
+    const db = firebase.firestore();
+
+    db.collection('users')
+      .doc(userId)
+      .set(fieldValue);
+
+    setFieldValue(initialFieldValues);
+    history.push('/profile');
+  };
 
   return (
     <DrawerLayout>
@@ -121,12 +154,18 @@ function Register() {
                     fullWidth
                     variant="outlined"
                     placeholder="Your Full Name"
+                    name="fullName"
+                    value={fieldValue.fullName}
+                    onChange={handleInputChange}
                   />
                   <TextField
                     className={classes.textField}
                     fullWidth
                     variant="outlined"
                     placeholder="Your Role(Ex: Software Developer)"
+                    name="role"
+                    value={fieldValue.role}
+                    onChange={handleInputChange}
                   />
                   <TextField
                     className={classes.textField}
@@ -135,6 +174,9 @@ function Register() {
                     fullWidth
                     variant="outlined"
                     placeholder="A Little About You"
+                    name="description"
+                    value={fieldValue.description}
+                    onChange={handleInputChange}
                   />
                   {/* Social Links */}
                   <fieldset className={classes.socialLinks}>
@@ -142,30 +184,52 @@ function Register() {
                       className={classes.social}
                       fullWidth
                       placeholder="GitHub Link"
+                      name="github"
+                      value={fieldValue.github}
+                      onChange={handleInputChange}
                     />
                     <InputBase
                       className={classes.social}
                       fullWidth
                       placeholder="LinkedIn Link"
+                      name="linkedIn"
+                      value={fieldValue.linkedIn}
+                      onChange={handleInputChange}
                     />
                     <InputBase
                       className={classes.social}
                       fullWidth
                       placeholder="Twitter Link"
+                      name="twitter"
+                      value={fieldValue.twitter}
+                      onChange={handleInputChange}
                     />
-                    <InputBase fullWidth placeholder="Personal Website" />
+                    <InputBase
+                      fullWidth
+                      placeholder="Personal Website"
+                      name="website"
+                      value={fieldValue.website}
+                      onChange={handleInputChange}
+                    />
                   </fieldset>
                   <TextField
                     className={classes.textField}
                     fullWidth
                     variant="outlined"
                     placeholder="Interested In (Separate By Comma(,))"
+                    name="interestedIn"
+                    value={fieldValue.interestedIn}
+                    onChange={handleInputChange}
                   />
-                  <Button className={classes.registerButton}>
+                  <Button
+                    className={classes.registerButton}
+                    onClick={handleRegister}
+                  >
                     <Typography style={{ color: '#fff' }}>
                       Register Me
                     </Typography>
-                  </Button>{' '}
+                  </Button>
+                  {' '}
                 </Grid>
               </Grid>
             </Box>
